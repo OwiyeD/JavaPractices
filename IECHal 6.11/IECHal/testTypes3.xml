@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<project xmlns="http://www.plcopen.org/xml/tc6_0201">
+    <fileHeader companyName="" companyURL="" productName="" productVersion="" productRelease="" creationDateTime="2018-01-30T20:16:00" contentDescription=""></fileHeader>
+    <contentHeader name="testTypes" version="" modificationDateTime="2018-01-30T20:16:00" organization="" author="">
+        <Comment></Comment>
+        <coordinateInfo>
+            <pageSize x="1" y="1"></pageSize>
+            <fbd>
+                <scaling x="1" y="1"></scaling>
+            </fbd>
+            <ld>
+                <scaling x="1" y="1"></scaling>
+            </ld>
+            <sfc>
+                <scaling x="1" y="1"></scaling>
+            </sfc>
+        </coordinateInfo>        
+    </contentHeader>
+    <types>
+        <dataTypes>
+            <dataType name="digitalSignal">
+                <baseType>
+                    <BOOL></BOOL>
+                </baseType>
+                <initialValue>
+                    <simpleValue value="false"></simpleValue>
+                </initialValue>
+            </dataType>
+            <dataType name="commandOnOff">
+                <baseType>
+                    <BOOL></BOOL>
+                </baseType>
+            </dataType>
+            <dataType name="absoluteTemperature">
+                <baseType>
+                    <REAL></REAL>
+                </baseType>
+                <initialValue>
+                    <simpleValue value="273.16"></simpleValue>
+                </initialValue>
+            </dataType>
+            <dataType name="degreesFahrenheit">
+                <baseType>
+                    <derived name="absoluteTemperature"></derived>
+                </baseType>                       
+            </dataType>
+            <dataType name="trafficLightStates">
+                <baseType>
+                    <enum>
+                        <values>
+                            <value name="red"/>
+                            <value name="yellow"/>
+                            <value name="green"/>
+                        </values>
+                    </enum>
+                </baseType>       
+            </dataType>
+            <dataType name="machineStates">
+                <baseType>
+                    <enum>
+                        <values>
+                            <value name="idle"/>
+                            <value name="busy"/>
+                            <value name="service"/>
+                        </values>
+                    </enum>
+                </baseType>       
+            </dataType>
+            <dataType name="commStates">
+                <baseType>
+                    <enum>
+                        <values>
+                            <value name="idle" value="0"/>
+                            <value name="msg_detected"/>
+                            <value name="msg_sent" value="5"/>
+                        </values>
+                    </enum>
+                </baseType>       
+            </dataType>
+            <dataType name="analogValue">
+                <baseType>
+                    <subrangeUnsigned>
+                        <range lower="0" upper="27648"/>
+                        <baseType>
+                            <UINT/>
+                        </baseType>
+                    </subrangeUnsigned>
+                </baseType>
+                <initialValue>
+                    <simpleValue value="13824"></simpleValue>
+                </initialValue>
+            </dataType>
+            <dataType name="floorNumber">
+                <baseType>
+                    <subrangeSigned>
+                        <range lower="-5" upper="50"/>
+                        <baseType>
+                            <SINT/>
+                        </baseType>
+                    </subrangeSigned>
+                </baseType>
+            </dataType>
+            <dataType name="switchData">
+                <baseType>
+                    <struct> 
+                        <variable name="Open">
+                            <type><BOOL/></type>
+                        </variable>
+                        <variable name="Closed">
+                            <type><BOOL/></type>
+                        </variable>
+                        <variable name="Measurements">
+                            <type>
+                                <struct>
+                                    <variable name="Voltage">
+                                        <type><REAL/></type>
+                                    </variable>
+                                    <variable name="Current">
+                                        <type><REAL/></type>
+                                    </variable>
+                                </struct>
+                            </type>
+                        </variable>
+                    </struct>    
+                </baseType>
+            </dataType>
+            <dataType name="realArray">
+                <baseType>
+                    <array> 
+                        <dimension lower="0" upper="5"/>
+                        <dimension lower="-3" upper="12"/>
+                        <baseType><REAL/></baseType>
+                    </array>
+                </baseType>
+            </dataType>
+        </dataTypes>
+        <pous>
+            <pou name="signal" pouType="function" >
+                <interface>
+                    <returnType>
+                        <BOOL></BOOL>
+                    </returnType>                    
+                    <inputVars name="input" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                        <variable name="in" address="">
+                            <type>
+                                <derived name="in"></derived>
+                            </type>
+                        </variable>
+                    </inputVars> 
+					<inputVars name="input" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false" >
+					    <variable name="on" address="">
+						    <type>
+							    <derived name="on"></derived>
+						    </type>
+						</variable>
+					</inputVars>
+                </interface>                
+                
+            </pou>
+            <pou name="escalator" pouType="function">
+                <interface>
+                    <inputVars name="Input" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                        <variable name="up" address="">
+                            <type>
+                                <INT></INT>
+                            </type>
+			    <initialValue>
+				<simpleValue value="1"></simpleValue>
+			    </initialValue>
+                        </variable>
+                    </inputVars>
+		    <localVars name="local" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="first" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			</variable>
+			<variable name="second" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue value="2"></simpleValue>
+			    </initialValue>
+			</variable>
+			<variable name="third" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue value="3"></simpleValue>
+			    </initialValue>
+			</variable>
+		    </localVars>
+		    <outputVars name="output" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="down" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue></simpleValue>
+			    </initialValue>
+			</variable>
+		    </outputVars>	
+                </interface>
+            </pou>
+          <pou name="light" pouType="function">
+            <interface>
+              <inputVars name="inPut" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                <variable name="lighton" address="">
+                  <type>
+                    <BOOL></BOOL>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="true"></simpleValue>
+                  </initialValue>
+                </variable>
+              </inputVars>
+              <inputVars name="INput" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                <variable name="lightof" address="">
+                  <type>
+                    <BOOL></BOOL>
+                  </type>
+                  <initialValue>
+                    <simpleValue value="false"></simpleValue>
+                  </initialValue>
+                </variable>
+              </inputVars>
+              <tempVars name="TEMP" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                <variable name="colour" address="">
+                  <type>
+                    <LWORD></LWORD>
+                  </type>
+                </variable>
+              </tempVars>
+            </interface>
+          </pou>
+            <pou name="door" pouType="function">
+                <interface>
+                    <returnType>
+                        <TIME></TIME>
+                    </returnType>
+		    <inOutVars name="inout" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="open" address="">
+			    <type>
+			        <TIME></TIME>
+			    </type>
+			</variable>
+		    </inOutVars>
+		    <outputVars name="output" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="close" address="">
+			    <type>
+				<TIME></TIME>
+			    </type>
+			</variable>
+		    </outputVars>
+                </interface>
+            </pou>
+            <pou name="open" pouType="function">
+                <interface>
+                    <localVars name="LOcal" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="turnon" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue value="1"></simpleValue>
+			    </initialValue>
+			</variable>
+			<variable name="turnoff" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue value="0"></simpleValue>
+			    </initialValue>
+			</variable>
+		    </localVars>
+		    <tempVars name="TeMp" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="close" address="">
+			    <type>
+				<INT></INT>
+			    </type>
+			    <initialValue>
+				<simpleValue></simpleValue>
+			    </initialValue>
+			</variable>
+		    </tempVars>
+                </interface>   
+            </pou>
+            <pou name="value" pouType="functionBlock">
+                <interface>
+                </interface>
+            </pou>   
+            <pou name="start" pouType="program">
+                   
+            </pou>
+            <pou name="distance" pouType="function">
+                <interface>
+                    <returnType>
+                        <derived name="kilometers"></derived>
+                    </returnType>
+                </interface>
+            </pou>
+            <pou name="time" pouType="function">
+                <interface>
+                    <returnType>
+                        <TIME></TIME>
+                    </returnType>
+                </interface>
+            </pou>
+            <pou name="elevator" pouType="function">
+                <interface>
+                    <returnType>
+                        <INT></INT>
+                    </returnType>
+		    <localVars name="floor" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="first" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			</variable>
+			<variable name="second" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			</variable>
+			<variable name="third" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			</variable>
+			<variable name="fourth" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			</variable>
+		    </localVars>
+                </interface>
+            </pou>
+            <pou name="aircondition" pouType="function">
+                <interface>
+                    <outputVars name="output" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                        <variable name="start" address="">
+                            <type>
+                                <INT></INT>
+                            </type>
+			    <initialValue>
+				<simpleValue value="28"></simpleValue>
+			    </initialValue>
+                        </variable>
+                    </outputVars>
+		    <outputVars name="OutPut=" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="temprature" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			    <initialValue>
+				<simpleValue value="32.5"></simpleValue>
+			    </initialValue>
+		        </variable>
+		    </outputVars>
+		    <tempVars name="temP" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="measurment" address="">
+			    <type>
+				<REAL></REAL>
+			    </type>
+			</variable>
+		    </tempVars>
+                </interface>
+            </pou>
+            <pou name="window" pouType="function">
+                <interface>
+                    <inOutVars name="inout" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                        <variable name="close" address="">
+                            <type>
+                                <TIME></TIME>
+                            </type>
+                        </variable>
+                    </inOutVars>
+                </interface>
+            </pou>
+            <pou name="engine" pouType="function">
+                <interface>
+                    <inputVars name="input" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+                        <variable name="var" address="">
+                            <type>
+                                <BOOL></BOOL>
+                            </type>
+                        </variable>
+                    </inputVars>
+		    <localVars name="Local" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="start" address="">
+			    <type>
+			        <BYTE></BYTE>
+			    </type>
+			</variable>
+			<variable name="pause" address="">
+			    <type>
+				<BYTE></BYTE>
+			    </type>
+			</variable>
+			<variable name="stop" address="">
+			    <type>
+				<BYTE></BYTE>
+			    </type>
+			</variable>
+		    </localVars>
+                </interface>    
+            </pou>
+            <pou name="trafficLight" pouType="program">
+                
+            </pou>
+            <pou name="degreesFahrenheit" pouType="function">
+                <interface>
+                    <returnType>
+                        <derived name="absoluteTemperature"></derived>
+                    </returnType>
+		    <inputVars name="input" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="temperature" address="">
+			    <type>
+				<derived name="absoluteTemperature"></derived>
+			    </type>
+			</variable>
+		    </inputVars>
+		    <tempVars name="Temp" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="Temperature" address="">
+			    <type>
+				<LREAL></LREAL>
+			    </type>
+			</variable>
+		    </tempVars>
+		    <inOutVars name="inOut" constant="false" retain="false" nonretain="false" persistent="false" nonpersistent="false">
+			<variable name="temp" address="">
+			    <type>
+				<LREAL></LREAL>
+			    </type>
+			</variable>
+		    </inOutVars>
+                </interface>                
+            </pou>
+        </pous>
+    </types>
+    <instances>
+        <configurations>
+            <configuration name="conf1">                
+                <resource name = "res1">
+                    <addData>
+                        <data name = "programs" handleUnknown = "implementation">
+                            <iechal.roles>
+                                <iechal.controller name = "name"/>
+                                <iechal.process name = "name"/>
+                            </iechal.roles>    
+                        </data>
+                    </addData>
+                </resource>
+                <addData>
+                    <data name = "params" handleUnknown = "implementation">
+                        <iechal.numOfBytes>
+                            <iechal.inputs value = "40"/>
+                            <iechal.outputs value = "40"/>
+                            <iechal.memory value = "80"/>
+                        </iechal.numOfBytes>
+                    </data>
+                </addData>
+            </configuration>
+        </configurations>
+    </instances>
+</project>

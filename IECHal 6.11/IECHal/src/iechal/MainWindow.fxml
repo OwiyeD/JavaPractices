@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iechal.MainWindowController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem mnemonicParsing="false" onAction="#NewProjectClicked" text="New Project" />
+                  <MenuItem mnemonicParsing="false" onAction="#OpenClicked" text="Open" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" onAction="#SaveAsClicked" text="Save as" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+              <MenuItem mnemonicParsing="false" onAction="#CloseApp" text="Exit" />
+            </items>
+          </Menu>
+          <Menu fx:id="menuPLC" mnemonicParsing="false" text="PLC" visible="false">
+              <items>
+                  <MenuItem fx:id="menuItemSetActiveConf" mnemonicParsing="false" text="Set active configuration" />
+                  <MenuItem fx:id="menuItemSetController" mnemonicParsing="false" text="Set controller POU" />
+                  <MenuItem fx:id="menuItemSetProcess" mnemonicParsing="false" text="Set process POU" />
+                  <SeparatorMenuItem fx:id="menuSepPLC1" mnemonicParsing="false" />
+                  <MenuItem fx:id="menuItemSetMemorySize" mnemonicParsing="false" onAction="#setMemorySizeClicked" text="Set memory size" />
+                  <SeparatorMenuItem fx:id="menuSepPLC2" mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#CompileClicked" text="Compile" />
+              </items>  
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <TreeView fx:id="projectListView" prefHeight="375.0" prefWidth="141.0" BorderPane.alignment="CENTER" />
+   </left>   
+   <bottom>
+      <TextArea fx:id="console" prefHeight="126.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <center>
+     
+   </center>
+   <right>
+      <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
+   </right>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Accordion fx:id="accordion">
+              
+            </Accordion>
+            <HBox alignment="CENTER" layoutX="163.0" layoutY="403.0" prefHeight="46.0" prefWidth="286.0" spacing="30.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button mnemonicParsing="false" text="Apply" visible="false" fx:id="btnApply"/>
+                  <Button cancelButton="true" mnemonicParsing="false" text="Cancel" visible="false" fx:id="btnCancel"/>
+                  <Button defaultButton="true" mnemonicParsing="false" text="Close" visible="false" fx:id="btnClose"/>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+   
+</BorderPane>
